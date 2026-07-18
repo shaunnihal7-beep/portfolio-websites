@@ -1,0 +1,4 @@
+1) go to cmd 
+2) change directory to this folder
+3) type npm run dev
+4) OPEN local host 

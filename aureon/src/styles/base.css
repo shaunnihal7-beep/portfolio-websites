@@ -1,0 +1,245 @@
+/* ============================================================
+   AUREON — base: tokens, reset, typography, atmosphere
+   Palette: Ink / Abyss / Bone / Slate / Champagne / Bullion
+   ============================================================ */
+
+/* Self-hosted webfonts — no third-party CDN dependency, so the
+   typeface never silently falls back if Fontshare is slow/blocked. */
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/clash-display-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/clash-display-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --ink: #050508;
+  --abyss: #0c0b14;
+  --bone: #ece8df;
+  --slate: #97939c;
+  --champagne: #e8cf9e;
+  --bullion: #c49a58;
+
+  --line: rgba(236, 232, 223, 0.1);
+  --surface: rgba(236, 232, 223, 0.028);
+
+  --font-display: 'Clash Display', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Satoshi', 'Segoe UI', system-ui, sans-serif;
+
+  --container: min(92vw, 1320px);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --nav-h: 84px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: dark;
+  scrollbar-color: rgba(196, 154, 88, 0.4) var(--ink);
+}
+
+/* Lenis smooth-scroll hooks */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+html.menu-open {
+  overflow: hidden;
+}
+
+body {
+  background:
+    radial-gradient(90rem 60rem at 50% -10%, #0d0c17 0%, transparent 60%),
+    radial-gradient(70rem 50rem at 85% 110%, #0b0a12 0%, transparent 55%),
+    var(--ink);
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(196, 154, 88, 0.35);
+  color: var(--bone);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+/* Hide native cursor only when the custom one is running */
+html.has-cursor,
+html.has-cursor a,
+html.has-cursor button,
+html.has-cursor input,
+html.has-cursor textarea {
+  cursor: none;
+}
+
+/* ---------- Typography ---------- */
+
+h1,
+h2,
+h3,
+.h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.h2 {
+  font-size: clamp(2.1rem, 4.4vw, 3.9rem);
+  max-width: 18ch;
+}
+
+h2 em,
+h1 em {
+  font-style: normal;
+  color: var(--champagne);
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--bullion);
+  margin-bottom: 1.4rem;
+}
+
+.container {
+  width: var(--container);
+  margin-inline: auto;
+}
+
+/* Word spans produced by splitWords() */
+.w {
+  display: inline-block;
+}
+
+/* ---------- Accessibility ---------- */
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 300;
+  padding: 0.7rem 1.2rem;
+  background: var(--champagne);
+  color: var(--ink);
+  border-radius: 999px;
+  font-weight: 700;
+  transform: translateY(-300%);
+  transition: transform 0.25s var(--ease-out);
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+:focus-visible {
+  outline: 2px solid var(--champagne);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Atmosphere layers ---------- */
+
+.webgl {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Static photographic grain — kills digital sterility.
+   Deliberately a plain (normal-blend) alpha layer: a mix-blend-mode here
+   would force the compositor to re-blend the full viewport over the
+   animating WebGL canvas every frame. Normal blend caches as one layer. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
