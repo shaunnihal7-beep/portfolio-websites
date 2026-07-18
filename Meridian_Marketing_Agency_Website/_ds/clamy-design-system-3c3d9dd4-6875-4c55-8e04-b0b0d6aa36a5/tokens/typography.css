@@ -1,0 +1,59 @@
+/* clamy Design System — Typography Tokens
+
+   Three faces:
+   · Archivo Black — display, wordmark, all massive headlines. Brutalist weight.
+   · Archivo — body, UI, navigation. Clean workhorse.
+   · Space Mono — labels, counters, meta. Technical precision.
+
+   Load via Google Fonts:
+   https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900
+     &family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900
+     &family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap
+*/
+
+:root {
+  /* ── Font families ─────────────────────────────────── */
+  --font-display:  "Archivo Black", "Archivo", Arial, sans-serif;
+  --font-body:     "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:     "Space Mono", "SFMono-Regular", Consolas, monospace;
+  --font-serif:    "Fraunces", Georgia, serif; /* editorial moments only */
+
+  /* ── Display — massive brand statements ───────────── */
+  --type-display-size:    clamp(4.5rem, 11vw, 11rem);
+  --type-display-weight:  900;
+  --type-display-line:    0.92;
+  --type-display-track:   -0.02em;
+
+  /* ── Headline — section headings ──────────────────── */
+  --type-headline-size:    clamp(2.4rem, 5.5vw, 5.5rem);
+  --type-headline-weight:  900;
+  --type-headline-line:    0.95;
+  --type-headline-track:   -0.02em;
+
+  /* ── Title — card / panel headings ────────────────── */
+  --type-title-size:    clamp(1.1rem, 1.5vw, 1.4rem);
+  --type-title-weight:  700;
+  --type-title-line:    1.25;
+  --type-title-track:   -0.01em;
+
+  /* ── Body ──────────────────────────────────────────── */
+  --type-body-size:    1rem;
+  --type-body-weight:  400;
+  --type-body-line:    1.7;
+
+  /* ── Label — mono uppercase counters / section labels */
+  --type-label-size:    0.68rem;
+  --type-label-weight:  700;
+  --type-label-track:   0.15em;
+  --type-label-line:    1.4;
+
+  /* ── Meta — smallest mono copy ─────────────────────── */
+  --type-meta-size:    0.62rem;
+  --type-meta-weight:  400;
+  --type-meta-track:   0.12em;
+
+  /* ── Wordmark ───────────────────────────────────────── */
+  --type-wordmark-size:    1rem;
+  --type-wordmark-weight:  900;
+  --type-wordmark-track:   0.08em;
+}

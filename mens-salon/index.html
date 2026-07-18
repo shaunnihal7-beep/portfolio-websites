@@ -1,0 +1,1131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>IRONOAK — Grooming Co.</title>
+<meta name="description" content="IRONOAK is a members-first grooming house — precision cuts, hot towel shaves, and rituals built for men who take their image seriously." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================= RESET & BASE ============================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: auto; }
+html, body { height: 100%; }
+
+:root {
+  --bg: #0b0a08;
+  --bg-alt: #141210;
+  --bg-elev: #1a1714;
+  --fg: #f4eee2;
+  --muted: #a9a094;
+  --muted-dim: #726b60;
+  --gold: #c8a24d;
+  --gold-bright: #e6c374;
+  --gold-dim: #8a6f38;
+  --line: rgba(244, 238, 226, 0.12);
+  --line-strong: rgba(244, 238, 226, 0.22);
+  --crimson: #7a2e2e;
+
+  --display: 'Oswald', 'Arial Narrow', sans-serif;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --ease-out: cubic-bezier(.16,.84,.44,1);
+  --ease-in-out: cubic-bezier(.65,0,.35,1);
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+ul { list-style: none; }
+svg { display: block; }
+
+::selection { background: var(--gold); color: var(--bg); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border: 2px solid var(--bg); border-radius: 10px; }
+
+/* ============================= UTILITIES ============================= */
+.wrap { max-width: 1360px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 64px); }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold);
+}
+.eyebrow::before {
+  content: ''; width: 28px; height: 1px; background: var(--gold);
+}
+.reveal-up {
+  opacity: 0; transform: translateY(48px);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.reveal-up.is-visible { opacity: 1; transform: translateY(0); }
+
+/* Fixed top progress bar that fills as the page is scrolled */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%; z-index: 1600;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold-bright));
+  transition: width 0.1s linear;
+}
+.split-word, .split-char { will-change: transform, opacity; }
+
+.btn {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 18px 38px;
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  border-radius: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-primary {
+  background: var(--gold);
+  color: #0b0a08;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--gold-bright);
+  transform: translateY(101%);
+  transition: transform .5s var(--ease-out);
+  z-index: -1;
+}
+.btn-primary:hover::before { transform: translateY(0); }
+
+.btn-ghost {
+  border: 1px solid var(--line-strong);
+  color: var(--fg);
+  background: transparent;
+  transition: border-color .35s var(--ease-out), background-color .35s var(--ease-out);
+}
+.btn-ghost:hover { border-color: var(--gold); background: rgba(200,162,77,0.08); }
+
+/* ============================= NOISE OVERLAY ============================= */
+.noise {
+  position: fixed; inset: -100px; z-index: 999; pointer-events: none;
+  opacity: 0.035; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================= PRELOADER ============================= */
+#preloader {
+  position: fixed; inset: 0; z-index: 2000;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+}
+.preloader-panel {
+  position: absolute; top: 0; height: 100%; width: 51%;
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+}
+.preloader-panel.left { left: 0; }
+.preloader-panel.right { right: 0; }
+.preloader-count-wrap {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+.preloader-count {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(48px, 8vw, 96px);
+  color: var(--fg);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.preloader-count::after { content: '%'; font-size: 0.4em; color: var(--gold); margin-left: 6px; }
+.preloader-label {
+  font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted);
+}
+.preloader-bar {
+  width: min(280px, 40vw); height: 1px; background: var(--line); margin-top: 8px; overflow: hidden;
+}
+.preloader-bar-fill { height: 100%; width: 0%; background: var(--gold); }
+
+/* ============================= NAV ============================= */
+header#site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  padding: 22px 0;
+  transition: transform .5s var(--ease-in-out), background-color .5s ease, border-color .5s ease, padding .4s ease;
+  border-bottom: 1px solid transparent;
+}
+header#site-nav.is-scrolled {
+  background: rgba(11,10,8,0.72);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-bottom-color: var(--line);
+  padding: 14px 0;
+}
+header#site-nav.nav-hidden { transform: translateY(-110%); }
+
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.logo { font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: 0.06em; display: flex; align-items: baseline; gap: 8px; }
+.logo span { color: var(--gold); }
+.logo small { font-family: var(--sans); font-size: 9px; letter-spacing: 0.3em; color: var(--muted); font-weight: 500; text-transform: uppercase; }
+
+.nav-links { display: flex; align-items: center; gap: 40px; }
+.nav-links a {
+  position: relative; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--fg); padding: 4px 0;
+}
+.nav-links a::after {
+  content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px;
+  background: var(--gold); transform: scaleX(0); transform-origin: right; transition: transform .4s var(--ease-out);
+}
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.nav-cta { display: flex; align-items: center; gap: 22px; }
+.nav-book.btn { padding: 13px 26px; font-size: 11px; }
+.nav-burger { display: none; width: 42px; height: 42px; border: 1px solid var(--line-strong); align-items: center; justify-content: center; }
+.nav-burger span { display: block; width: 18px; height: 1px; background: var(--fg); position: relative; }
+.nav-burger span::before, .nav-burger span::after { content: ''; position: absolute; left: 0; width: 100%; height: 1px; background: var(--fg); }
+.nav-burger span::before { top: -6px; } .nav-burger span::after { top: 6px; }
+
+/* ============================= HERO ============================= */
+#hero {
+  position: relative; height: 100dvh; min-height: 620px; overflow: hidden;
+  background: var(--bg);
+}
+.hero-bg-layer { position: absolute; inset: -6%; z-index: 0; }
+.hero-bg-layer img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
+  filter: grayscale(0.4) contrast(1.05) brightness(0.68);
+  transform: scale(1.12);
+}
+.hero-scrim {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(11,10,8,0.42) 0%, rgba(11,10,8,0.2) 32%, rgba(11,10,8,0.42) 70%, var(--bg) 100%),
+    linear-gradient(90deg, rgba(11,10,8,0.6) 0%, transparent 45%, transparent 55%, rgba(11,10,8,0.42) 100%);
+}
+.hero-vignette {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  box-shadow: inset 0 0 220px 60px rgba(0,0,0,0.55);
+}
+
+/* Topline (badges) and main (headline) are pinned independently to the hero's
+   top/bottom edges so their heights can never fight each other or the fixed nav. */
+.hero-topline {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 3;
+  padding-top: clamp(104px, 15vh, 152px);
+}
+.hero-topline .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; width: 100%; align-items: flex-start; gap: 16px; }
+.hero-badge {
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid var(--line-strong); padding: 10px 16px;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+  background: rgba(11,10,8,0.4);
+  backdrop-filter: blur(6px);
+}
+.hero-badge strong { color: var(--gold-bright); font-weight: 600; }
+.hero-stars { color: var(--gold); letter-spacing: 2px; font-size: 12px; }
+
+.hero-main { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; padding-bottom: clamp(48px, 8vh, 90px); }
+.hero-heading {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(52px, 11.5vw, 168px);
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+.hero-heading .accent {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  text-transform: none;
+  color: var(--gold);
+  letter-spacing: 0;
+}
+.hero-heading .line { display: block; overflow: hidden; padding: 0 2px; }
+
+.hero-sub-row {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end;
+  gap: 32px; margin-top: 34px;
+}
+.hero-desc { max-width: 420px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.hero-scroll-cue {
+  position: absolute; right: clamp(20px, 4vw, 64px); bottom: 28px; z-index: 3;
+  display: none; flex-direction: column; align-items: center; gap: 10px;
+  writing-mode: vertical-rl;
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted);
+}
+.hero-scroll-cue .line-track { writing-mode: horizontal-tb; width: 1px; height: 46px; background: var(--line-strong); position: relative; overflow: hidden; }
+.hero-scroll-cue .line-track::after {
+  content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%; background: var(--gold);
+  animation: scrollcue 2.2s ease-in-out infinite;
+}
+@keyframes scrollcue { 0% { top: -100%; } 60% { top: 100%; } 100% { top: 100%; } }
+
+.hero-float-chip {
+  position: absolute; z-index: 3; border: 1px solid var(--line-strong);
+  background: rgba(11,10,8,0.5); backdrop-filter: blur(10px);
+  padding: 14px 18px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  display: none;
+}
+.hero-float-chip .num { display: block; font-family: var(--display); font-size: 26px; color: var(--gold-bright); letter-spacing: 0; text-transform: none; }
+.chip-1 { top: 30%; right: clamp(24px, 5vw, 90px); }
+@media (min-width: 900px) {
+  .hero-float-chip { display: block; }
+  .hero-scroll-cue { display: flex; }
+}
+
+@media (max-height: 700px) {
+  .hero-heading { font-size: clamp(42px, 9vw, 108px); }
+  .hero-topline { padding-top: clamp(88px, 12vh, 120px); }
+}
+
+/* ============================= MARQUEE ============================= */
+.marquee-band {
+  position: relative; z-index: 4; background: var(--gold); color: var(--bg);
+  padding: 16px 0; overflow: hidden; white-space: nowrap;
+  border-top: 1px solid var(--bg); border-bottom: 1px solid var(--bg);
+  transform: rotate(0deg);
+}
+.marquee-track {
+  display: flex; flex-wrap: nowrap; align-items: center; width: max-content;
+  animation: marquee 32s linear infinite;
+}
+.marquee-track span {
+  font-family: var(--display); font-weight: 600; font-size: clamp(18px, 2.4vw, 28px); text-transform: uppercase;
+  letter-spacing: 0.02em; padding: 0 24px; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 24px; flex: 0 0 auto;
+}
+.marquee-track span::after { content: '\2726'; font-size: 14px; opacity: 0.6; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-band:hover .marquee-track { animation-play-state: paused; }
+
+/* ============================= SECTION HEADERS ============================= */
+.section { position: relative; padding: clamp(90px, 13vw, 160px) 0; }
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: clamp(50px, 7vw, 90px); flex-wrap: wrap; }
+.section-title {
+  font-family: var(--display); font-weight: 600; text-transform: uppercase; letter-spacing: -0.01em;
+  font-size: clamp(38px, 6vw, 76px); line-height: 0.95; margin-top: 16px; max-width: 780px;
+}
+.section-title .accent { font-family: var(--serif); font-style: italic; color: var(--gold); text-transform: none; }
+.section-note { max-width: 340px; color: var(--muted); font-size: 15px; line-height: 1.7; padding-bottom: 6px; }
+
+/* ============================= PHILOSOPHY / ABOUT ============================= */
+#philosophy { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.phil-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(40px, 6vw, 100px); align-items: center; }
+.phil-media { position: relative; aspect-ratio: 4/5; overflow: hidden; }
+.phil-media img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.35) contrast(1.05); }
+.phil-media::after { content: ''; position: absolute; inset: 0; border: 1px solid var(--line-strong); pointer-events: none; }
+.phil-frame {
+  position: absolute; top: -18px; left: -18px; width: 100%; height: 100%;
+  border: 1px solid var(--gold-dim); z-index: -1;
+}
+.phil-text .section-title { margin-top: 10px; }
+.phil-copy { margin-top: 26px; color: var(--muted); font-size: 17px; line-height: 1.85; max-width: 540px; }
+.phil-copy strong { color: var(--fg); font-weight: 600; }
+
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line); }
+.stat-num { font-family: var(--display); font-weight: 600; font-size: clamp(32px, 4vw, 52px); color: var(--gold-bright); display: flex; align-items: baseline; gap: 2px; }
+.stat-num .suffix { font-size: 0.5em; color: var(--gold); }
+.stat-label { margin-top: 8px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+/* ============================= SERVICES ============================= */
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.service-card {
+  position: relative; background: var(--bg); padding: 40px 32px 34px; overflow: hidden;
+  transition: background-color .4s var(--ease-out);
+}
+.service-card::before {
+  content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: var(--gold);
+  transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease-out);
+}
+.service-card:hover { background: var(--bg-alt); }
+.service-card:hover::before { transform: scaleX(1); }
+.service-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.service-index { font-family: var(--display); font-weight: 500; font-size: 13px; color: var(--gold-dim); letter-spacing: 0.1em; }
+.service-icon { width: 34px; height: 34px; color: var(--gold); transition: transform .5s var(--ease-out); }
+.service-card:hover .service-icon { transform: rotate(-12deg) scale(1.1); }
+.service-title { font-family: var(--display); font-weight: 600; font-size: 26px; text-transform: uppercase; margin-top: 26px; letter-spacing: 0.01em; }
+.service-desc { color: var(--muted); font-size: 14.5px; line-height: 1.7; margin-top: 12px; min-height: 62px; }
+.service-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); }
+.service-price { font-family: var(--serif); font-style: italic; font-size: 20px; color: var(--gold-bright); }
+.service-time { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted-dim); }
+
+/* ============================= GALLERY (HORIZONTAL PIN) ============================= */
+#gallery-pin { position: relative; background: var(--bg); overflow: hidden; }
+.gallery-head { padding-top: clamp(90px, 13vw, 160px); }
+.gallery-track-wrap { height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.gallery-track { display: flex; gap: 28px; padding: 60px clamp(20px,4vw,64px) 0; will-change: transform; }
+.gallery-item { position: relative; flex: 0 0 auto; width: min(64vw, 620px); height: min(64vh, 460px); overflow: hidden; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.3) contrast(1.08); transition: transform .8s var(--ease-out); }
+.gallery-item:hover img { transform: scale(1.08); }
+.gallery-item .gi-frame-num {
+  position: absolute; top: 18px; left: 18px; z-index: 2;
+  font-family: var(--display); font-weight: 600; font-size: 44px; color: rgba(244,238,226,0.85);
+  mix-blend-mode: difference;
+}
+.gallery-item .gi-cap {
+  position: absolute; left: 18px; bottom: 18px; z-index: 2;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg);
+  background: rgba(11,10,8,0.55); padding: 8px 14px; backdrop-filter: blur(6px);
+}
+.gallery-item.tall { width: min(38vw, 360px); }
+
+/* ============================= BARBERS ============================= */
+#barbers { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.barbers-head.section-head { align-items: center; }
+.barbers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.barber-card { position: relative; }
+.barber-media { position: relative; aspect-ratio: 3/4; overflow: hidden; background: var(--bg-elev); }
+.barber-media img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.8) contrast(1.1) brightness(0.92); transition: filter .5s var(--ease-out), transform .6s var(--ease-out); }
+.barber-card:hover .barber-media img { filter: grayscale(0) contrast(1.05) brightness(1); transform: scale(1.05); }
+.barber-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(11,10,8,0.9) 100%); }
+.barber-social {
+  position: absolute; left: 16px; bottom: 16px; z-index: 2; display: flex; gap: 10px;
+  opacity: 0; transform: translateY(10px); transition: opacity .4s var(--ease-out), transform .4s var(--ease-out);
+}
+.barber-card:hover .barber-social { opacity: 1; transform: translateY(0); }
+.barber-social a { width: 30px; height: 30px; border: 1px solid var(--line-strong); display: flex; align-items: center; justify-content: center; background: rgba(11,10,8,0.6); }
+.barber-social a:hover { border-color: var(--gold); color: var(--gold); }
+.barber-social svg { width: 13px; height: 13px; }
+.barber-info { padding: 18px 4px 0; display: flex; justify-content: space-between; align-items: flex-start; }
+.barber-name { font-family: var(--display); font-weight: 600; font-size: 20px; text-transform: uppercase; }
+.barber-role { font-size: 12px; color: var(--gold); letter-spacing: 0.06em; margin-top: 4px; }
+.barber-tag { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 13px; text-align: right; max-width: 90px; line-height: 1.4; }
+
+/* ============================= TESTIMONIALS ============================= */
+#reviews { position: relative; }
+.reviews-marquee { overflow: hidden; }
+.reviews-track { display: flex; gap: 28px; animation: marquee-rev 46s linear infinite; width: max-content; }
+.reviews-track:hover { animation-play-state: paused; }
+@keyframes marquee-rev { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.review-card {
+  width: min(78vw, 420px); flex: 0 0 auto;
+  border: 1px solid var(--line); padding: 34px 30px; background: var(--bg-alt);
+  display: flex; flex-direction: column; gap: 18px;
+}
+.review-stars { color: var(--gold); letter-spacing: 4px; font-size: 13px; }
+.review-quote { font-family: var(--serif); font-style: italic; font-size: 19px; line-height: 1.6; color: var(--fg); }
+.review-person { display: flex; align-items: center; gap: 12px; margin-top: auto; padding-top: 10px; }
+.review-avatar { width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: var(--bg-elev); flex-shrink: 0; }
+.review-avatar img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.5); }
+.review-name { font-size: 13px; font-weight: 600; }
+.review-meta { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* ============================= BOOKING CTA ============================= */
+#book {
+  position: relative; padding: clamp(100px, 16vw, 200px) 0; overflow: hidden;
+  background: var(--bg-alt); border-top: 1px solid var(--line);
+}
+.book-bg-text {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-family: var(--display); font-weight: 700; font-size: 32vw; color: transparent;
+  -webkit-text-stroke: 1px var(--line); white-space: nowrap; z-index: 0; pointer-events: none;
+  user-select: none;
+}
+.book-inner { position: relative; z-index: 1; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.book-inner .section-title { max-width: 980px; margin-left: auto; margin-right: auto; }
+.book-desc { max-width: 520px; color: var(--muted); font-size: 16px; margin: 26px auto 0; line-height: 1.7; }
+.book-actions { margin-top: 44px; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+.book-btn-big { padding: 24px 56px; font-size: 14px; }
+.book-info-row { display: flex; gap: 60px; margin-top: 70px; flex-wrap: wrap; justify-content: center; }
+.book-info-item { text-align: left; }
+.book-info-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.book-info-val { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--fg); }
+
+/* ============================= FOOTER ============================= */
+footer { padding: 70px 0 30px; background: var(--bg); }
+.footer-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 50px; border-bottom: 1px solid var(--line); }
+.footer-brand .logo { font-size: 28px; }
+.footer-brand p { color: var(--muted); font-size: 14px; margin-top: 16px; max-width: 280px; line-height: 1.7; }
+.footer-col h4 { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.footer-col a { display: block; color: var(--muted); font-size: 14px; margin-bottom: 12px; transition: color .3s ease, transform .3s ease; }
+.footer-col a:hover { color: var(--fg); transform: translateX(4px); }
+.footer-social { display: flex; gap: 10px; margin-top: 20px; }
+.footer-social a { width: 38px; height: 38px; border: 1px solid var(--line-strong); display: flex; align-items: center; justify-content: center; }
+.footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+.footer-social svg { width: 15px; height: 15px; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 26px; flex-wrap: wrap; gap: 14px; }
+.footer-bottom p { font-size: 12px; color: var(--muted-dim); }
+.to-top { display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line-strong); padding: 10px 16px; }
+.to-top:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ============================= MOBILE NAV DRAWER ============================= */
+.mobile-drawer {
+  position: fixed; inset: 0; z-index: 950; background: var(--bg);
+  display: flex; flex-direction: column; justify-content: center; padding: 40px clamp(20px,6vw,60px);
+  transform: translateY(-100%); transition: transform .55s var(--ease-in-out);
+}
+.mobile-drawer.is-open { transform: translateY(0); }
+.mobile-drawer a { font-family: var(--display); font-weight: 600; font-size: 42px; text-transform: uppercase; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.mobile-close { position: absolute; top: 24px; right: 24px; width: 44px; height: 44px; border: 1px solid var(--line-strong); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+
+/* ============================= RESPONSIVE ============================= */
+@media (max-width: 980px) {
+  .nav-links { display: none; }
+  .nav-burger { display: flex; }
+  .phil-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .barbers-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 620px) {
+  .services-grid { grid-template-columns: 1fr; }
+  .barbers-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .hero-sub-row { flex-direction: column; align-items: flex-start; }
+  .book-info-row { flex-direction: column; gap: 24px; align-items: center; text-align: center; }
+  .book-info-item { text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *:not(.marquee-track):not(.reviews-track) {
+    animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+<div class="noise"></div>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="preloader-panel left"></div>
+  <div class="preloader-panel right"></div>
+  <div class="preloader-count-wrap">
+    <div class="preloader-label">Ironoak Grooming Co.</div>
+    <div class="preloader-count" id="preloaderCount">0</div>
+    <div class="preloader-bar"><div class="preloader-bar-fill" id="preloaderBar"></div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<header id="site-nav">
+  <div class="wrap nav-inner">
+    <a href="#home" class="logo">IRON<span>OAK</span><small>Grooming Co.</small></a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#barbers">Barbers</a>
+      <a href="#reviews">Reviews</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#book" class="btn btn-primary nav-book magnetic">Book Now</a>
+      <button class="nav-burger" id="burgerBtn" aria-label="Open menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <button class="mobile-close" id="mobileClose">&times;</button>
+  <a href="#services">Services</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#barbers">Barbers</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#book">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" role="banner" aria-label="Hero">
+  <div class="hero-bg-layer" id="heroBgLayer">
+    <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1800&auto=format&fit=crop"
+         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?q=80&w=1800&auto=format&fit=crop'"
+         alt="Barber shaping a client's fade in a dark, moody studio" />
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="hero-vignette"></div>
+
+  <div class="hero-topline">
+    <div class="wrap">
+      <div class="hero-badge"><span class="hero-stars">★★★★★</span> <strong>4.9</strong>&nbsp;/ 500+ reviews</div>
+      <div class="hero-badge">Est. <strong>2012</strong> — Downtown Chair House</div>
+    </div>
+  </div>
+
+  <div class="hero-float-chip chip-1">
+    <span class="num">09</span> Master Barbers on Call
+  </div>
+
+  <div class="hero-main">
+    <div class="wrap">
+      <h1 class="hero-heading" id="heroHeading">
+        <span class="line">SHARPEN</span>
+        <span class="line">YOUR <span class="accent">edge.</span></span>
+        <span class="line">OWN THE ROOM.</span>
+      </h1>
+      <div class="hero-sub-row">
+        <p class="hero-desc" id="heroDesc">
+          IRONOAK is a members-first grooming house — precision fades, hot towel shaves,
+          and rituals engineered for men who take their image seriously.
+        </p>
+        <div class="hero-actions" id="heroActions">
+          <a href="#book" class="btn btn-primary magnetic">Book Your Chair</a>
+          <a href="#services" class="btn btn-ghost magnetic">Explore Services</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-cue"><div class="line-track"></div>SCROLL</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span>Precision Fades</span><span>Hot Towel Shaves</span><span>Beard Sculpting</span><span>Scalp Rituals</span><span>Grey Blending</span><span>Grooming Memberships</span>
+    <span>Precision Fades</span><span>Hot Towel Shaves</span><span>Beard Sculpting</span><span>Scalp Rituals</span><span>Grey Blending</span><span>Grooming Memberships</span>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy" class="section">
+  <div class="wrap">
+    <div class="phil-grid">
+      <div class="phil-media reveal-up">
+        <div class="phil-frame"></div>
+        <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=1200&auto=format&fit=crop"
+             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=1200&auto=format&fit=crop'"
+             alt="Interior of the Ironoak barbershop with leather chairs" />
+      </div>
+      <div class="phil-text">
+        <span class="eyebrow reveal-up">Our Philosophy</span>
+        <h2 class="section-title reveal-up">Craft is a <span class="accent">discipline,</span> not a trend.</h2>
+        <p class="phil-copy reveal-up">
+          Every chair at IRONOAK is manned by a barber who has logged thousands of hours perfecting
+          one thing: making men look like the sharpest version of themselves. <strong>No rushed cuts.
+          No guesswork.</strong> Just a considered consultation, deliberate technique, and a finish
+          that holds up long after you've left the chair.
+        </p>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-num"><span class="count" data-count="12">0</span><span class="suffix">+</span></div>
+            <div class="stat-label">Years Sharpening</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num"><span class="count" data-count="18">0</span><span class="suffix">k+</span></div>
+            <div class="stat-label">Clients Groomed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num"><span class="count" data-count="9">0</span></div>
+            <div class="stat-label">Master Barbers</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num"><span class="count" data-count="4.9" data-decimal="1">0</span></div>
+            <div class="stat-label">Average Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow reveal-up">Services & Rituals</span>
+        <h2 class="section-title reveal-up">Built around <span class="accent">your</span> look.</h2>
+      </div>
+      <p class="section-note reveal-up">Every service opens with a consultation — we cut for your face, your hair, your life, not a template.</p>
+    </div>
+
+    <div class="services-grid">
+      <article class="service-card reveal-up">
+        <div class="service-top">
+          <span class="service-index">01</span>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 4l6 8-6 8M18 4l-6 8 6 8" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="service-title">Signature Cut</h3>
+        <p class="service-desc">Consultation, precision scissor + clipper work, and a hot towel finish.</p>
+        <div class="service-foot"><span class="service-price">$65</span><span class="service-time">45 min</span></div>
+      </article>
+
+      <article class="service-card reveal-up">
+        <div class="service-top">
+          <span class="service-index">02</span>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12h16M4 6h10M4 18h13" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="service-title">Hot Towel Shave</h3>
+        <p class="service-desc">Straight razor shave with steaming towels, pre-shave oil, and balm finish.</p>
+        <div class="service-foot"><span class="service-price">$55</span><span class="service-time">40 min</span></div>
+      </article>
+
+      <article class="service-card reveal-up">
+        <div class="service-top">
+          <span class="service-index">03</span>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3c4 3 6 6 6 10a6 6 0 01-12 0c0-4 2-7 6-10z"/></svg>
+        </div>
+        <h3 class="service-title">Beard Sculpt</h3>
+        <p class="service-desc">Precision shape-up, line detailing, and conditioning oil treatment.</p>
+        <div class="service-foot"><span class="service-price">$40</span><span class="service-time">30 min</span></div>
+      </article>
+
+      <article class="service-card reveal-up">
+        <div class="service-top">
+          <span class="service-index">04</span>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="service-title">Skin Fade</h3>
+        <p class="service-desc">Razor-sharp fade blending to the skin, tailored to your natural line.</p>
+        <div class="service-foot"><span class="service-price">$70</span><span class="service-time">50 min</span></div>
+      </article>
+
+      <article class="service-card reveal-up">
+        <div class="service-top">
+          <span class="service-index">05</span>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3 class="service-title">Scalp Ritual</h3>
+        <p class="service-desc">Exfoliating scalp massage and treatment to restore density and shine.</p>
+        <div class="service-foot"><span class="service-price">$50</span><span class="service-time">35 min</span></div>
+      </article>
+
+      <article class="service-card reveal-up">
+        <div class="service-top">
+          <span class="service-index">06</span>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6h16M4 12h16M4 18h10" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="service-title">The Full Ritual</h3>
+        <p class="service-desc">Cut, hot towel shave, and scalp treatment — our complete signature experience.</p>
+        <div class="service-foot"><span class="service-price">$150</span><span class="service-time">2 hr</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="section" style="padding-bottom:0;">
+  <div id="gallery-pin">
+    <div class="gallery-head wrap">
+      <div class="section-head" style="margin-bottom: 30px;">
+        <div>
+          <span class="eyebrow reveal-up">Inside The Shop</span>
+          <h2 class="section-title reveal-up">The <span class="accent">craft,</span> in frame.</h2>
+        </div>
+        <p class="section-note reveal-up">Scroll to walk through the chairs, the tools, and the finished work.</p>
+      </div>
+    </div>
+    <div class="gallery-track-wrap">
+      <div class="gallery-track" id="galleryTrack">
+        <div class="gallery-item"><span class="gi-frame-num">01</span><img src="https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?q=80&w=1000&auto=format&fit=crop" alt="Barber detailing a fade"><span class="gi-cap">Precision Fade</span></div>
+        <div class="gallery-item tall"><span class="gi-frame-num">02</span><img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=900&auto=format&fit=crop" alt="Close-up beard trim"><span class="gi-cap">Beard Detail</span></div>
+        <div class="gallery-item"><span class="gi-frame-num">03</span><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?q=80&w=1000&auto=format&fit=crop" alt="Barbershop interior with chairs"><span class="gi-cap">The Chair House</span></div>
+        <div class="gallery-item tall"><span class="gi-frame-num">04</span><img src="https://images.unsplash.com/photo-1512690459411-b9245aed614b?q=80&w=900&auto=format&fit=crop" alt="Finished modern haircut"><span class="gi-cap">Finished Look</span></div>
+        <div class="gallery-item"><span class="gi-frame-num">05</span><img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=1000&auto=format&fit=crop" alt="Row of barber chairs"><span class="gi-cap">Studio Floor</span></div>
+        <div class="gallery-item"><span class="gi-frame-num">06</span><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1000&auto=format&fit=crop" alt="Barber at work"><span class="gi-cap">In Session</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BARBERS -->
+<section id="barbers" class="section">
+  <div class="wrap">
+    <div class="section-head barbers-head">
+      <div>
+        <span class="eyebrow reveal-up">The Chair Masters</span>
+        <h2 class="section-title reveal-up">Hands you can <span class="accent">trust.</span></h2>
+      </div>
+      <p class="section-note reveal-up">Nine master barbers, each sharpened by years behind the chair and a specialty of their own — from bold skin fades to old-world straight-razor shaves. Every booking is one-on-one, so you always know exactly whose hands you're in, visit after visit.</p>
+    </div>
+    <div class="barbers-grid">
+      <div class="barber-card reveal-up">
+        <div class="barber-media">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=700&auto=format&fit=crop" alt="Marcus Cole, master barber">
+          <div class="barber-social">
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+            <a href="#" aria-label="Book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></a>
+          </div>
+        </div>
+        <div class="barber-info">
+          <div><div class="barber-name">Marcus Cole</div><div class="barber-role">Master Barber</div></div>
+          <div class="barber-tag">Fades &amp; Tapers</div>
+        </div>
+      </div>
+
+      <div class="barber-card reveal-up">
+        <div class="barber-media">
+          <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=700&auto=format&fit=crop" alt="Dante Reyes, senior barber">
+          <div class="barber-social">
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+            <a href="#" aria-label="Book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></a>
+          </div>
+        </div>
+        <div class="barber-info">
+          <div><div class="barber-name">Dante Reyes</div><div class="barber-role">Senior Barber</div></div>
+          <div class="barber-tag">Beard Artistry</div>
+        </div>
+      </div>
+
+      <div class="barber-card reveal-up">
+        <div class="barber-media">
+          <img src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?q=80&w=700&auto=format&fit=crop" alt="Elias Vaughn, style director">
+          <div class="barber-social">
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+            <a href="#" aria-label="Book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></a>
+          </div>
+        </div>
+        <div class="barber-info">
+          <div><div class="barber-name">Elias Vaughn</div><div class="barber-role">Style Director</div></div>
+          <div class="barber-tag">Classic Cuts</div>
+        </div>
+      </div>
+
+      <div class="barber-card reveal-up">
+        <div class="barber-media">
+          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=700&auto=format&fit=crop" alt="Theo Grant, barber">
+          <div class="barber-social">
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+            <a href="#" aria-label="Book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></a>
+          </div>
+        </div>
+        <div class="barber-info">
+          <div><div class="barber-name">Theo Grant</div><div class="barber-role">Barber</div></div>
+          <div class="barber-tag">Modern Textures</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="reviews" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow reveal-up">Word On The Street</span>
+        <h2 class="section-title reveal-up">Trusted by <span class="accent">sharp</span> men.</h2>
+      </div>
+    </div>
+  </div>
+  <div class="reviews-marquee">
+    <div class="reviews-track" id="reviewsTrack">
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">"Best fade I've had in a decade. Marcus listens, then executes exactly what he says he will."</p>
+        <div class="review-person"><div class="review-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt=""></div><div><div class="review-name">James O.</div><div class="review-meta">Signature Cut Member</div></div></div>
+      </div>
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">"The hot towel shave alone is worth the trip. Walked out feeling like a different man."</p>
+        <div class="review-person"><div class="review-avatar"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop" alt=""></div><div><div class="review-name">Priya D.</div><div class="review-meta">Gifted for a partner</div></div></div>
+      </div>
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">"IRONOAK is the only shop where the consultation actually changes what they do. Zero regrets, ever."</p>
+        <div class="review-person"><div class="review-avatar"><img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=200&auto=format&fit=crop" alt=""></div><div><div class="review-name">Daniel K.</div><div class="review-meta">Full Ritual Regular</div></div></div>
+      </div>
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">"Dante shaped my beard into something my barber back home never could. Booked monthly now."</p>
+        <div class="review-person"><div class="review-avatar"><img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?q=80&w=200&auto=format&fit=crop" alt=""></div><div><div class="review-name">Wes T.</div><div class="review-meta">Beard Sculpt Regular</div></div></div>
+      </div>
+      <!-- duplicate for seamless marquee -->
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">"Best fade I've had in a decade. Marcus listens, then executes exactly what he says he will."</p>
+        <div class="review-person"><div class="review-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt=""></div><div><div class="review-name">James O.</div><div class="review-meta">Signature Cut Member</div></div></div>
+      </div>
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">"The hot towel shave alone is worth the trip. Walked out feeling like a different man."</p>
+        <div class="review-person"><div class="review-avatar"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop" alt=""></div><div><div class="review-name">Priya D.</div><div class="review-meta">Gifted for a partner</div></div></div>
+      </div>
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">"IRONOAK is the only shop where the consultation actually changes what they do. Zero regrets, ever."</p>
+        <div class="review-person"><div class="review-avatar"><img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=200&auto=format&fit=crop" alt=""></div><div><div class="review-name">Daniel K.</div><div class="review-meta">Full Ritual Regular</div></div></div>
+      </div>
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">"Dante shaped my beard into something my barber back home never could. Booked monthly now."</p>
+        <div class="review-person"><div class="review-avatar"><img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?q=80&w=200&auto=format&fit=crop" alt=""></div><div><div class="review-name">Wes T.</div><div class="review-meta">Beard Sculpt Regular</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section id="book">
+  <div class="book-bg-text" aria-hidden="true">BOOK</div>
+  <div class="wrap book-inner">
+    <span class="eyebrow reveal-up">Reserve Your Chair</span>
+    <h2 class="section-title reveal-up">Ready for your <span class="accent">best</span> look?</h2>
+    <p class="book-desc reveal-up">Chairs fill fast on weekends. Reserve yours online in under a minute, or call the shop directly.</p>
+    <div class="book-actions reveal-up">
+      <a href="#" class="btn btn-primary book-btn-big magnetic">Book Appointment</a>
+      <a href="tel:+15551234567" class="btn btn-ghost book-btn-big magnetic">Call (555) 123-4567</a>
+    </div>
+    <div class="book-info-row reveal-up">
+      <div class="book-info-item"><div class="book-info-label">Location</div><div class="book-info-val">412 Vantage Row, Downtown</div></div>
+      <div class="book-info-item"><div class="book-info-label">Hours</div><div class="book-info-val">Tue–Sun, 9am – 8pm</div></div>
+      <div class="book-info-item"><div class="book-info-label">Walk-ins</div><div class="book-info-val">Welcome after 6pm</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#home" class="logo">IRON<span>OAK</span></a>
+        <p>A members-first grooming house for men who take their image seriously. Precision cuts, hot towel shaves, and rituals that hold up.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 4v10.5a3.5 3.5 0 11-3-3.46V8a6.5 6.5 0 106.5 6.5V9c1 .8 2.2 1.3 3.5 1.3V7.3A5 5 0 0117 4h-3z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 4h-2a4 4 0 00-4 4v2H7v3h2v7h3v-7h2.5l.5-3H12V8a1 1 0 011-1h2V4z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#services">Services</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#barbers">Barbers</a>
+        <a href="#reviews">Reviews</a>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#book">Book Appointment</a>
+        <a href="#">Gift Cards</a>
+        <a href="#">Memberships</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+15551234567">(555) 123-4567</a>
+        <a href="mailto:chair@ironoak.co">chair@ironoak.co</a>
+        <a href="#">412 Vantage Row</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 IRONOAK Grooming Co. All rights reserved.</p>
+      <a href="#home" class="to-top magnetic">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================= SCRIPTS ============================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/split-type@0.3.4/umd/index.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
+<script>
+(function() {
+  "use strict";
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var hasGSAP = typeof gsap !== 'undefined';
+  if (hasGSAP && typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+  /* ---------------- Lenis smooth scroll ---------------- */
+  var lenis = null;
+  if (typeof Lenis !== 'undefined' && !reduceMotion) {
+    lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    if (hasGSAP) {
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    }
+  }
+
+  /* ---------------- Preloader ---------------- */
+  var preloader = document.getElementById('preloader');
+  var countEl = document.getElementById('preloaderCount');
+  var barEl = document.getElementById('preloaderBar');
+  var counter = { val: 0 };
+
+  function startHeroEntrance() {
+    if (!hasGSAP) return;
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    if (typeof SplitType !== 'undefined') {
+      var split = new SplitType('#heroHeading .line', { types: 'words', tagName: 'span' });
+      tl.set(split.words, { yPercent: 130, opacity: 0 })
+        .to(split.words, { yPercent: 0, opacity: 1, duration: 1.1, stagger: 0.06 }, 0.1);
+    } else {
+      tl.from('#heroHeading', { y: 60, opacity: 0, duration: 1 });
+    }
+
+    tl.from('.hero-badge', { opacity: 0, y: -16, duration: 0.7, stagger: 0.12 }, 0.2)
+      .from('#heroDesc', { opacity: 0, y: 24, duration: 0.8 }, 0.7)
+      .from('#heroActions .btn', { opacity: 0, y: 24, duration: 0.7, stagger: 0.1 }, 0.85)
+      .from('.hero-float-chip', { opacity: 0, scale: 0.8, duration: 0.7 }, 0.9)
+      .from('.hero-scroll-cue', { opacity: 0, duration: 0.6 }, 1.1);
+  }
+
+  function runPreloaderExit() {
+    if (!hasGSAP) { preloader.style.display = 'none'; startHeroEntrance(); return; }
+    var tl = gsap.timeline({
+      onComplete: function () { preloader.style.display = 'none'; }
+    });
+    tl.to('.preloader-count-wrap', { opacity: 0, duration: 0.4 })
+      .to('.preloader-panel.left', { xPercent: -101, duration: 0.9, ease: 'expo.inOut' }, 0.05)
+      .to('.preloader-panel.right', { xPercent: 101, duration: 0.9, ease: 'expo.inOut' }, 0.05)
+      .add(startHeroEntrance, 0.35);
+  }
+
+  if (hasGSAP) {
+    gsap.to(counter, {
+      val: 100, duration: 1.6, ease: 'power2.inOut',
+      onUpdate: function () {
+        var v = Math.round(counter.val);
+        countEl.textContent = v;
+        barEl.style.width = v + '%';
+      },
+      onComplete: function () { setTimeout(runPreloaderExit, 200); }
+    });
+  } else {
+    setTimeout(function(){ preloader.style.display = 'none'; }, 800);
+  }
+
+  /* ---------------- Magnetic buttons ---------------- */
+  if (canHover && !reduceMotion && hasGSAP) {
+    document.querySelectorAll('.magnetic').forEach(function (el) {
+      var qx = gsap.quickTo(el, 'x', { duration: 0.5, ease: 'power3.out' });
+      var qy = gsap.quickTo(el, 'y', { duration: 0.5, ease: 'power3.out' });
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect();
+        var relX = e.clientX - (r.left + r.width / 2);
+        var relY = e.clientY - (r.top + r.height / 2);
+        qx(relX * 0.35);
+        qy(relY * 0.35);
+      });
+      el.addEventListener('mouseleave', function () { qx(0); qy(0); });
+    });
+  }
+
+  /* ---------------- Nav: hide on scroll down, blur on scroll ---------------- */
+  var nav = document.getElementById('site-nav');
+  var lastY = window.scrollY;
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    nav.classList.toggle('is-scrolled', y > 40);
+    if (y > lastY && y > 160) nav.classList.add('nav-hidden');
+    else nav.classList.remove('nav-hidden');
+    lastY = y;
+  }, { passive: true });
+
+  /* ---------------- Mobile drawer ---------------- */
+  var burger = document.getElementById('burgerBtn');
+  var drawer = document.getElementById('mobileDrawer');
+  var closeBtn = document.getElementById('mobileClose');
+  if (burger) burger.addEventListener('click', function () { drawer.classList.add('is-open'); });
+  if (closeBtn) closeBtn.addEventListener('click', function () { drawer.classList.remove('is-open'); });
+  drawer.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { drawer.classList.remove('is-open'); });
+  });
+
+  /* ---------------- Scroll progress bar ---------------- */
+  var progressBar = document.getElementById('scroll-progress');
+  function updateProgress() {
+    var scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  /* ---------------- Scroll reveals (CSS-transition based, works with or without GSAP) ---------------- */
+  document.querySelectorAll('.service-card.reveal-up').forEach(function (el, i) {
+    el.style.transitionDelay = ((i % 3) * 0.08) + 's';
+  });
+  document.querySelectorAll('.barber-card.reveal-up').forEach(function (el, i) {
+    el.style.transitionDelay = ((i % 4) * 0.09) + 's';
+  });
+
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal-up').forEach(function (el) { revealObserver.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal-up').forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  if (hasGSAP) {
+    /* Hero parallax */
+    if (!reduceMotion) {
+      gsap.to('#heroBgLayer img', {
+        yPercent: 14, ease: 'none',
+        scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+      gsap.to('.hero-float-chip', {
+        yPercent: -30, ease: 'none',
+        scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+    }
+
+    /* Count-up stats */
+    document.querySelectorAll('.count').forEach(function (el) {
+      var target = parseFloat(el.getAttribute('data-count'));
+      var decimals = parseInt(el.getAttribute('data-decimal') || '0', 10);
+      var obj = { v: 0 };
+      ScrollTrigger.create({
+        trigger: el, start: 'top 90%', once: true,
+        onEnter: function () {
+          gsap.to(obj, {
+            v: target, duration: 1.6, ease: 'power2.out',
+            onUpdate: function () { el.textContent = obj.v.toFixed(decimals); }
+          });
+        }
+      });
+    });
+
+    /* Horizontal gallery pin */
+    var galleryWrap = document.querySelector('.gallery-track-wrap');
+    var galleryTrack = document.getElementById('galleryTrack');
+    function initGallery() {
+      if (window.innerWidth < 760 || !galleryTrack || !galleryWrap) return;
+      var scrollDist = galleryTrack.scrollWidth - window.innerWidth + 120;
+      if (scrollDist <= 0) return;
+      /* Pin only the 100vh track-wrap (not #gallery-pin, which also contains
+         the taller intro heading) so the pinned view is never clipped. */
+      gsap.to(galleryTrack, {
+        x: -scrollDist, ease: 'none',
+        scrollTrigger: {
+          trigger: galleryWrap, start: 'top top', end: '+=' + (scrollDist + 400),
+          scrub: 0.6, pin: true, anticipatePin: 1, invalidateOnRefresh: true
+        }
+      });
+    }
+    ScrollTrigger.matchMedia({
+      "(min-width: 760px)": initGallery
+    });
+  }
+
+})();
+</script>
+</body>
+</html>

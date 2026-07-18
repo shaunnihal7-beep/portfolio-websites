@@ -1,0 +1,39 @@
+/* clamy Design System — Color Tokens
+   
+   Two surfaces: dark mineral ground (default) + warm paper (light sections).
+   One accent: rust/burnt orange, used sparingly as a signal dot.
+   Everything else is monochromatic — the drama lives in the typography scale.
+*/
+
+:root {
+  /* ── Dark surfaces ─────────────────────────────────── */
+  --ground:          oklch(8% 0.005 95);   /* page bg — dark near-black */
+  --ground-deep:     oklch(5% 0.003 95);   /* deepest inset, footer well */
+  --surface:         oklch(13% 0.005 95);  /* dark panels/cards */
+  --surface-raised:  oklch(18% 0.004 95);  /* elevated within dark */
+
+  /* ── Light surfaces ────────────────────────────────── */
+  --paper:           oklch(94% 0.012 80);  /* light section bg — warm cream #f2ede4 */
+  --paper-raised:    oklch(97% 0.008 80);  /* cards on paper */
+  --paper-deep:      oklch(90% 0.016 80);  /* sunken areas on paper */
+
+  /* ── Text on dark ──────────────────────────────────── */
+  --ink:             oklch(93% 0.003 80);  /* primary — near-white */
+  --ink-muted:       oklch(65% 0.002 80);  /* secondary — visible gray */
+  --ink-faint:       oklch(42% 0.002 80);  /* tertiary — very subdued */
+
+  /* ── Text on light ─────────────────────────────────── */
+  --text:            oklch(12% 0.010 80);  /* primary dark ink */
+  --text-muted:      oklch(45% 0.008 80);  /* secondary */
+  --text-faint:      oklch(62% 0.005 80);  /* tertiary */
+
+  /* ── Accent ────────────────────────────────────────── */
+  --accent:          oklch(47% 0.175 35);  /* rust/burnt orange — used sparingly */
+  --accent-hover:    oklch(52% 0.175 35);
+
+  /* ── Rules / borders ───────────────────────────────── */
+  --rule:            oklch(100% 0 0 / 0.09);
+  --rule-strong:     oklch(100% 0 0 / 0.18);
+  --rule-paper:      oklch(0% 0 0 / 0.09);
+  --rule-paper-strong: oklch(0% 0 0 / 0.18);
+}

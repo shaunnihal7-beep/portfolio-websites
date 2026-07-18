@@ -1,0 +1,27 @@
+/* clamy Design System — Spacing & Layout Tokens */
+
+:root {
+  /* ── Spacing scale ──────────────────────────────────── */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   24px;
+  --space-6:   32px;
+  --space-7:   48px;
+  --space-8:   64px;
+  --space-9:   80px;
+  --space-10:  120px;
+  --space-11:  160px;
+  --space-12:  240px;
+
+  /* ── Layout ─────────────────────────────────────────── */
+  --max-width:   1400px;
+  --gutter:      clamp(1.5rem, 5vw, 4rem); /* @kind other */
+  --col-gap:     32px;
+
+  /* ── Radii — almost none. Sharp by default. ─────────── */
+  --radius:     0px;
+  --radius-sm:  2px;
+  --radius-pill: 999px;
+}

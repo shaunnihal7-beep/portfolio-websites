@@ -1,0 +1,1 @@
+specific animation load only when animations is allowed in windows

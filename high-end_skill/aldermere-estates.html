@@ -1,0 +1,547 @@
+<html lang="en"><head>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aldermere Estates — Boutique Real Estate Studio</title>
+<meta name="description" content="Aldermere Estates is a boutique real estate studio curating exceptional homes from first viewing to final signature.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%2312181f'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%236fa8dc' stroke-width='1.5'/%3E%3Cpath d='M32 14v8M32 42v8M14 32h8M42 32h8' stroke='%23c08a4e' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  :root {
+    --ink: #12181f;
+    --ink-2: #1a222b;
+    --ink-3: #212b36;
+    --vellum: #ece4d3;
+    --vellum-2: #e3d9c2;
+    --cyan: #6fa8dc;
+    --cyan-dim: rgba(111,168,220,0.16);
+    --brass: #c08a4e;
+    --brass-soft: rgba(192,138,78,0.14);
+    --paper-text: #edeadf;
+    --paper-text-dim: rgba(237,234,223,0.74);
+    --paper-text-faint: rgba(237,234,223,0.56);
+    --deed-ink: #201a12;
+    --deed-ink-dim: rgba(32,26,18,0.7);
+    --deed-ink-faint: rgba(32,26,18,0.6);
+    --line: rgba(237,234,223,0.12);
+    --line-soft: rgba(237,234,223,0.07);
+    --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: var(--ink); color: var(--paper-text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  h1, h2, h3, .serif { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; }
+  a { color: inherit; }
+  h1, h2, h3 { overflow-wrap: break-word; }
+  img { max-width: 100%; display: block; }
+  a, button, .btn, summary, [role="button"] { touch-action: manipulation; -webkit-tap-highlight-color: rgba(111,168,220,0.18); }
+
+  .grain { position: fixed; inset: 0; z-index: 3; pointer-events: none; opacity: 0.035; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-weight: 500; font-size: 13.5px; letter-spacing: 0.01em; text-decoration: none; border-radius: 9999px; padding: 14px 14px 14px 24px; transition: transform 500ms var(--ease-out), box-shadow 500ms var(--ease-out), background 400ms ease; cursor: pointer; border: 1px solid transparent; white-space: nowrap; }
+  .btn:active { transform: scale(0.97); }
+  .btn-brass { background: var(--brass); color: var(--ink); }
+  .btn-brass:hover { box-shadow: 0 14px 30px rgba(192,138,78,0.32); }
+  .btn-brass .btn-bubble { background: rgba(18,24,31,0.14); }
+  .btn-ghost { background: transparent; color: var(--paper-text); border-color: var(--line); padding: 14px 24px; }
+  .btn-ghost:hover { background: rgba(237,234,223,0.05); border-color: rgba(237,234,223,0.24); transform: translateY(-2px); }
+  .btn-vellum { background: var(--vellum); color: var(--deed-ink); }
+  .btn-vellum:hover { box-shadow: 0 14px 30px rgba(0,0,0,0.28); }
+  .btn-vellum .btn-bubble { background: rgba(32,26,18,0.08); }
+  .btn-bubble { width: 30px; height: 30px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform 500ms var(--ease-out); font-size: 13px; }
+  .btn:hover .btn-bubble { transform: translate(2px, -2px) scale(1.06); }
+  .link-arrow { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 4px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px; color: var(--paper-text-dim); text-decoration: none; transition: color 300ms ease; }
+  .link-arrow span { display: inline-block; transition: transform 300ms var(--ease-out); }
+  .link-arrow:hover { color: var(--paper-text); }
+  .link-arrow:hover span { transform: translateX(4px); }
+
+  /* Double bezel */
+  .bezel { background: rgba(237,234,223,0.035); border: 1px solid var(--line-soft); border-radius: 1.6rem; padding: 6px; transition: transform 550ms var(--ease-spring), box-shadow 550ms var(--ease-spring); }
+  .bezel-inner { background: var(--ink-2); border-radius: 1.3rem; box-shadow: inset 0 1px 0 rgba(255,255,255,0.04); }
+  .bezel:hover { transform: translateY(-6px); box-shadow: 0 26px 54px rgba(0,0,0,0.35); }
+  .bezel-vellum .bezel-inner { background: var(--vellum); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5); }
+
+  .kicker { display: flex; align-items: center; gap: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); }
+  .kicker::before { content: ''; width: 20px; height: 1px; background: var(--brass); }
+  .kicker.on-vellum { color: var(--brass); }
+
+  .reveal { transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out), filter 900ms var(--ease-out); }
+  /* Only hide pre-reveal when JS is present, so no-JS visitors still see everything. */
+  .js .reveal { opacity: 0; transform: translateY(36px); filter: blur(5px); }
+  .reveal.in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+  /* Stagger grouped items as they enter */
+  .reveal[data-delay="1"] { transition-delay: 90ms; }
+  .reveal[data-delay="2"] { transition-delay: 180ms; }
+  .reveal[data-delay="3"] { transition-delay: 270ms; }
+
+  /* Scroll progress indicator */
+  .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 200; transform: scaleX(0); transform-origin: 0 50%; background: linear-gradient(90deg, var(--brass), var(--cyan)); box-shadow: 0 0 12px rgba(111,168,220,0.4); will-change: transform; pointer-events: none; }
+
+  /* Parallax layers driven by scroll */
+  .hero-contours, .plat-card { will-change: transform; }
+
+  /* -------- Header: title block, not a floating pill -------- */
+  .titlebar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: calc(22px + env(safe-area-inset-top)) max(32px, env(safe-area-inset-right)) 22px max(32px, env(safe-area-inset-left)); border-bottom: 1px solid transparent; transition: background 400ms ease, border-color 400ms ease, padding 400ms ease, backdrop-filter 400ms ease; }
+  .titlebar.scrolled { padding: calc(14px + env(safe-area-inset-top)) max(32px, env(safe-area-inset-right)) 14px max(32px, env(safe-area-inset-left)); background: rgba(18,24,31,0.82); border-bottom-color: rgba(111,168,220,0.22); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+  .titlebar-inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand-block { display: flex; align-items: center; gap: 14px; }
+  .brand-mark { width: 38px; height: 38px; border-radius: 9px; border: 1px solid rgba(111,168,220,0.4); position: relative; flex-shrink: 0; }
+  .brand-mark::before { content: ''; position: absolute; inset: 8px; border-radius: 50%; border: 1px solid var(--cyan); }
+  .brand-mark::after { content: '+'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--brass); font-size: 13px; font-weight: 700; }
+  .brand-text a { font-family: 'Instrument Serif', serif; font-size: 22px; text-decoration: none; color: var(--paper-text); display: block; line-height: 1.05; letter-spacing: 0.2px; }
+  .brand-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper-text-faint); margin-top: 2px; }
+  .nav-links { display: flex; gap: 4px; align-items: center; }
+  .nav-links a { display: inline-flex; align-items: center; min-height: 44px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.02em; color: var(--paper-text-dim); text-decoration: none; transition: color 250ms ease; padding: 8px 16px; position: relative; }
+  .nav-links a:not(:last-child)::after { content: ''; position: absolute; right: -1px; top: 50%; transform: translateY(-50%); width: 1px; height: 12px; background: var(--line); }
+  .nav-links a:hover { color: var(--cyan); }
+  .nav-right { display: flex; align-items: center; gap: 22px; }
+  .nav-burger { display: none; background: none; border: none; color: var(--paper-text); cursor: pointer; padding: 10px; width: 44px; height: 44px; position: relative; }
+  .nav-burger span { position: absolute; left: 12px; right: 12px; height: 1.5px; background: currentColor; transition: transform 450ms var(--ease-spring), top 450ms var(--ease-spring); }
+  .nav-burger span:nth-child(1) { top: 18px; }
+  .nav-burger span:nth-child(2) { top: 25px; }
+  .nav-burger.open span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-burger.open span:nth-child(2) { top: 21px; transform: rotate(-45deg); }
+
+  .mob-panel { position: fixed; top: 0; left: 0; right: 0; z-index: 99; background: var(--ink-2); border-bottom: 1px solid var(--line); padding: calc(96px + env(safe-area-inset-top)) max(28px, env(safe-area-inset-right)) 28px max(28px, env(safe-area-inset-left)); display: flex; flex-direction: column; gap: 2px; transform: translateY(-100%); visibility: hidden; transition: transform 500ms var(--ease-spring), visibility 0ms linear 500ms; }
+  .mob-panel.open { transform: translateY(0); visibility: visible; transition: transform 500ms var(--ease-spring), visibility 0ms linear 0ms; }
+  .mob-panel a { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 14px; color: var(--paper-text-dim); text-decoration: none; padding: 15px 4px; border-bottom: 1px solid var(--line-soft); display: flex; justify-content: space-between; min-height: 44px; align-items: center; }
+  .mob-panel a::after { content: '→'; color: var(--brass); }
+  .mob-panel a:hover { color: var(--paper-text); }
+  body.menu-open { overflow: hidden; }
+
+  /* -------- Hero -------- */
+  #hero { min-height: 100dvh; position: relative; display: flex; align-items: center; padding: 128px 32px 60px; overflow: hidden; }
+  .hero-contours { position: absolute; inset: 0; pointer-events: none; opacity: 0.55; }
+  .hero-shell { max-width: 1240px; width: 100%; margin: 0 auto; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; position: relative; z-index: 2; }
+  .hero-copy h1 { font-size: 68px; font-style: italic; line-height: 0.98; letter-spacing: -0.5px; color: var(--paper-text); text-wrap: pretty; margin-bottom: 26px; }
+  .hero-copy h1 .not-italic { font-style: normal; color: var(--brass); }
+  .hero-copy > p { font-size: 17px; color: var(--paper-text-dim); line-height: 1.6; max-width: 430px; margin-bottom: 40px; }
+  .hero-cta-row { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; margin-bottom: 54px; }
+  .hero-stats { display: flex; gap: 0; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 22px; max-width: 460px; }
+  .hero-stats div { flex: 1; padding-right: 20px; }
+  .hero-stats div p:first-child { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 22px; font-weight: 600; color: var(--paper-text); letter-spacing: -0.3px; }
+  .hero-stats div p:last-child { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 10.5px; color: var(--paper-text-faint); margin-top: 5px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  /* Plat card — the signature element */
+  .plat-card { position: relative; background: var(--vellum); border-radius: 4px; padding: 22px; box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.4) inset; }
+  .plat-card::before { content: ''; position: absolute; inset: 9px; border: 1px solid rgba(32,26,18,0.22); pointer-events: none; }
+  .plat-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+  .plat-head .plat-label { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--deed-ink-dim); }
+  .plat-head .plat-label strong { display: block; color: var(--deed-ink); font-size: 14px; font-family: 'Instrument Serif', serif; font-style: italic; margin-top: 3px; }
+  .compass { width: 32px; height: 32px; position: relative; flex-shrink: 0; }
+  .compass svg { width: 100%; height: 100%; }
+  .plat-visual { position: relative; height: 360px; border-radius: 3px; overflow: hidden; }
+  .plat-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .plat-lines { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .plat-pin { position: absolute; display: flex; align-items: center; gap: 7px; }
+  .plat-pin .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 3px rgba(192,138,78,0.4); flex-shrink: 0; }
+  .plat-pin span { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 10px; color: var(--deed-ink); white-space: nowrap; background: rgba(236,228,211,0.92); padding: 3px 9px; border-radius: 3px; }
+  .plat-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; margin-top: 14px; border-top: 1px dashed rgba(32,26,18,0.25); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 10.5px; color: var(--deed-ink-dim); letter-spacing: 0.03em; }
+
+  /* -------- Section shell -------- */
+  .section { padding: 128px 32px; position: relative; }
+  .section-inner { max-width: 1180px; margin: 0 auto; }
+  .section-head { max-width: 580px; margin-bottom: 60px; }
+  .section-head h2 { font-size: 44px; font-style: italic; color: var(--paper-text); line-height: 1.05; letter-spacing: -0.3px; text-wrap: pretty; margin-top: 16px; }
+  .section-head p { font-size: 16px; color: var(--paper-text-dim); line-height: 1.55; margin-top: 16px; }
+  .section-head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
+
+  /* Listings bento */
+  .listings-bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 22px; align-items: stretch; }
+  .listing { overflow: hidden; height: 100%; }
+  .listing.span-7 { grid-column: span 7; }
+  .listing.span-5 { grid-column: span 5; }
+  .listing.span-6 { grid-column: span 6; }
+  .listing .bezel-inner { height: 100%; display: flex; flex-direction: column; }
+  .listing-media { height: 320px; overflow: hidden; position: relative; flex-shrink: 0; }
+  .listing.span-5 .listing-media, .listing.span-6 .listing-media { height: 258px; }
+  .listing-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 800ms var(--ease-spring); filter: saturate(0.94); }
+  .listing:hover .listing-media img { transform: scale(1.06); }
+  .listing-price { position: absolute; top: 14px; left: 14px; background: var(--vellum); color: var(--deed-ink); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-weight: 600; font-size: 12px; padding: 7px 14px; border-radius: 3px; box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+  .listing-body { padding: 24px 26px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .listing-body .tag { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 10.5px; font-weight: 500; color: var(--brass); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .listing-body h3 { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 24px; color: var(--paper-text); margin-bottom: 6px; letter-spacing: 0; }
+  .listing-body p.loc { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11.5px; color: var(--paper-text-faint); }
+
+  /* Why us */
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .why-icon { width: 42px; height: 42px; background: var(--cyan-dim); border: 1px solid rgba(111,168,220,0.3); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--cyan); margin-bottom: 22px; }
+  .why-card-inner { padding: 4px; }
+  .why-card h3 { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 22px; color: var(--paper-text); margin-bottom: 12px; }
+  .why-card p { font-size: 15px; color: var(--paper-text-dim); line-height: 1.6; }
+
+  /* Process */
+  #process { background: var(--ink-2); }
+  .process-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; position: relative; }
+  .process-row::before { content: ''; position: absolute; top: 11px; left: 4%; right: 4%; height: 1px; background: repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 12px); z-index: 0; }
+  .process-step { position: relative; z-index: 1; }
+  .process-num { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 12px; color: var(--brass); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+  .process-num::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 4px rgba(18,24,31,1), 0 0 0 5px var(--line); }
+  .process-step h3 { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 21px; color: var(--paper-text); margin-bottom: 10px; }
+  .process-step p { font-size: 14px; color: var(--paper-text-dim); line-height: 1.55; max-width: 240px; }
+
+  /* Contact */
+  #contact { padding: 96px 32px 140px; }
+  .contact-shell { max-width: 940px; margin: 0 auto; }
+  .contact-inner { padding: 60px 54px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 46px; align-items: center; }
+  .contact-inner h2 { font-size: 38px; font-style: italic; line-height: 1.1; letter-spacing: -0.2px; color: var(--deed-ink); margin-bottom: 20px; text-wrap: pretty; }
+  .contact-inner h2 .not-italic { font-style: normal; color: var(--brass); }
+  .contact-inner > div:first-child > p { font-size: 15.5px; color: var(--deed-ink-dim); line-height: 1.6; margin-bottom: 30px; max-width: 380px; }
+  .agent-card { background: rgba(32,26,18,0.05); border: 1px solid rgba(32,26,18,0.12); border-radius: 14px; padding: 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; }
+  .agent-photo { width: 72px; height: 72px; border-radius: 50%; overflow: hidden; margin-bottom: 12px; border: 3px solid var(--vellum); box-shadow: 0 10px 24px rgba(0,0,0,0.18); }
+  .agent-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .agent-card strong { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 17px; color: var(--deed-ink); }
+  .agent-card span { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--deed-ink-faint); margin-bottom: 14px; }
+  .agent-card .meta { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 12px; color: var(--deed-ink-dim); line-height: 1.6; }
+
+  /* Footer */
+  footer { padding: 72px 32px 32px; border-top: 1px solid var(--line-soft); background: var(--ink-2); }
+  .footer-inner { max-width: 1180px; margin: 0 auto; }
+  .footer-cols { display: flex; gap: 56px; flex-wrap: wrap; margin-bottom: 50px; }
+  .footer-brand { flex: 2 1 220px; }
+  .footer-brand a { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 20px; text-decoration: none; color: var(--paper-text); display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .footer-brand p { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 12px; color: var(--paper-text-faint); line-height: 1.6; max-width: 220px; }
+  .footer-col { flex: 1 1 120px; }
+  .footer-col p.head { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 10.5px; font-weight: 500; color: var(--paper-text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; }
+  .footer-col div { display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a { display: inline-flex; align-items: center; min-height: 40px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 12.5px; color: var(--paper-text-faint); text-decoration: none; transition: color 250ms ease; }
+  .footer-col a:hover { color: var(--cyan); }
+  .footer-bottom { border-top: 1px solid var(--line-soft); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-bottom p { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px; color: var(--paper-text-faint); }
+  .footer-legal { display: flex; gap: 22px; }
+  .footer-legal a { display: inline-flex; align-items: center; min-height: 40px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px; color: var(--paper-text-faint); text-decoration: none; }
+  .footer-legal a:hover { color: var(--cyan); }
+
+  a, button { transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, opacity 200ms ease; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .js .reveal { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
+    .scroll-progress { display: none; }
+    .hero-contours, .plat-card { transform: none !important; }
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  @media (max-width: 1023px) {
+    .hero-shell { grid-template-columns: 1fr; }
+    .plat-card { max-width: 460px; margin: 0 auto; }
+    .listing.span-7, .listing.span-5, .listing.span-6 { grid-column: span 12; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .process-row { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+    .process-row::before { display: none; }
+    .contact-inner { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 767px) {
+    .nav-links, .nav-cta { display: none !important; }
+    .nav-burger { display: flex; align-items: center; justify-content: center; }
+    #hero { padding: 104px max(20px, env(safe-area-inset-right)) 50px max(20px, env(safe-area-inset-left)); min-height: auto; }
+    .hero-copy h1 { font-size: 42px; }
+    .hero-stats { padding-top: 18px; }
+    .plat-visual { height: 260px; }
+    .section { padding: 76px max(20px, env(safe-area-inset-right)) 76px max(20px, env(safe-area-inset-left)); }
+    .section-head h2 { font-size: 32px; }
+    .section-head-row { flex-direction: column; align-items: flex-start; gap: 22px; }
+    .why-grid { grid-template-columns: 1fr; gap: 34px; }
+    .process-row { grid-template-columns: 1fr; gap: 34px; }
+    .contact-inner { padding: 38px 22px; }
+    .contact-inner h2 { font-size: 27px; }
+    .footer-cols { gap: 36px; margin-bottom: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<header class="titlebar scrolled" id="titlebar">
+  <div class="titlebar-inner">
+    <div class="brand-block">
+      <div class="brand-mark"></div>
+      <div class="brand-text">
+        <a href="#">Aldermere</a>
+        <div class="brand-sub">Est. 2014 · Coastal CA</div>
+      </div>
+    </div>
+    <nav class="nav-links">
+      <a href="#listings">Listings</a>
+      <a href="#why">Why Us</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <a class="btn btn-brass nav-cta" href="#contact" style="">Book a Viewing<span class="btn-bubble">↗</span></a>
+      <button class="nav-burger" id="navBurger" aria-label="Toggle menu" aria-controls="mobPanel" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mob-panel" id="mobPanel" aria-hidden="true">
+  <a href="#listings">Listings</a>
+  <a href="#why">Why Us</a>
+  <a href="#process">Process</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<section id="hero">
+  <svg class="hero-contours" viewBox="0 0 1400 900" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-50,780 C250,700 450,860 750,760 C1000,680 1200,820 1450,740" fill="none" stroke="#6fa8dc" stroke-width="1"></path>
+    <path d="M-50,830 C280,760 480,900 780,800 C1030,720 1230,860 1450,790" fill="none" stroke="#6fa8dc" stroke-width="1"></path>
+    <path d="M-50,150 C300,90 500,220 800,140 C1050,80 1250,180 1450,110" fill="none" stroke="#6fa8dc" stroke-width="1" opacity="55%"></path>
+    <path d="M-50,100 C320,40 520,170 820,90 C1070,30 1270,130 1450,60" fill="none" stroke="#6fa8dc" stroke-width="1" opacity="55%"></path>
+    <path d="M-50,300 C260,250 460,360 760,290 C1010,230 1210,330 1450,270" fill="none" stroke="#6fa8dc" stroke-width="1" opacity="55%"></path>
+    <path d="M-50,340 C270,300 470,400 770,330 C1020,280 1220,370 1450,310" fill="none" stroke="#6fa8dc" stroke-width="1" opacity="55%"></path>
+    <path d="M-50,600 C260,540 470,660 770,590 C1020,530 1220,630 1450,570" fill="none" stroke="#6fa8dc" stroke-width="1" opacity="55%"></path>
+    <path d="M-50,650 C270,600 480,700 780,640 C1030,590 1230,680 1450,620" fill="none" stroke="#6fa8dc" stroke-width="1" opacity="55%"></path>
+    <line x1="0" y1="450" x2="1400" y2="450" stroke="#c08a4e" stroke-width="0.5" stroke-dasharray="2 6"></line>
+    <line x1="700" y1="0" x2="700" y2="900" stroke="#c08a4e" stroke-width="0.5" stroke-dasharray="2 6"></line>
+    <line x1="0" y1="220" x2="1400" y2="220" stroke="#c08a4e" stroke-width="0.5" stroke-dasharray="2 6"></line>
+    <line x1="0" y1="680" x2="1400" y2="680" stroke="#c08a4e" stroke-width="0.5" stroke-dasharray="2 6"></line>
+  </svg>
+
+  <div class="hero-shell">
+    <div class="hero-copy reveal">
+      <h1>Every listing, <span class="not-italic">surveyed</span><br>before it's sold.</h1>
+      <p>Aldermere is a small studio representing a deliberately short list of coastal California homes — each one walked, measured, and vetted before it ever reaches a client.</p>
+      <div class="hero-cta-row">
+        <a class="btn btn-brass" href="#listings" style="">View Listings<span class="btn-bubble">↗</span></a>
+        <a class="link-arrow" href="#contact">Book a consultation <span>→</span></a>
+      </div>
+      <div class="hero-stats">
+        <div><p>180+</p><p>Homes Sold</p></div>
+        <div><p>$420M</p><p>Closed Volume</p></div>
+        <div><p>12 DAY</p><p>Avg. To Offer</p></div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="plat-card">
+        <div class="plat-head">
+          <div class="plat-label">Parcel Record<strong>Cliffside Residence</strong></div>
+          <div class="compass">
+            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="#201a12" stroke-opacity="0.35" stroke-width="1"></circle><path d="M20 6 L23 20 L20 34 L17 20 Z" fill="#c08a4e"></path><text x="20" y="6" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="6" fill="#201a12">N</text></svg>
+          </div>
+        </div>
+        <div class="plat-visual">
+          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&amp;fit=crop&amp;w=700&amp;h=560&amp;q=80" alt="Cliffside modern home in Big Sur" width="700" height="560" loading="eager" fetchpriority="high" decoding="async" sizes="(max-width: 1023px) 92vw, 40vw">
+          
+          
+          
+          
+        </div>
+        <div class="plat-footer"><span>Scale 1&nbsp;:&nbsp;480</span><span>$2.4M · Big Sur, CA</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="listings">
+  <div class="section-inner">
+    <div class="section-head reveal" style="margin-bottom:60px;">
+      <span class="kicker">Featured Listings</span>
+      <h2 style="margin-top:16px;">Homes worth a second look.</h2>
+    </div>
+
+    <div class="listings-bento">
+      <div class="listing span-7 reveal bezel"><div class="bezel-inner">
+        <div class="listing-media"><span class="listing-price">$2.4M</span><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&amp;fit=crop&amp;w=1000&amp;h=800&amp;q=80" alt="Cliffside modern home in Big Sur" width="1000" height="800" loading="lazy" decoding="async" sizes="(max-width: 1023px) 100vw, 58vw"></div>
+        <div class="listing-body"><p class="tag">Coastal Modern</p><h3>Cliffside Residence</h3><p class="loc">Big Sur, CA · 4 bd · 3.5 ba · 0.62 ac</p></div>
+      </div></div>
+
+      <div class="listing span-5 reveal bezel" data-delay="1"><div class="bezel-inner">
+        <div class="listing-media"><span class="listing-price">$1.1M</span><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&amp;fit=crop&amp;w=800&amp;h=700&amp;q=80" alt="Garden loft in Nob Hill" width="800" height="700" loading="lazy" decoding="async" sizes="(max-width: 1023px) 100vw, 42vw"></div>
+        <div class="listing-body"><p class="tag">City Loft</p><h3>Garden Loft</h3><p class="loc">Nob Hill, SF · 2 bd · 2 ba</p></div>
+      </div></div>
+
+      <div class="listing span-6 reveal bezel" data-delay="2"><div class="bezel-inner">
+        <div class="listing-media"><span class="listing-price">$3.2M</span><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=800&amp;h=650&amp;q=80" alt="Lakeside retreat in Tahoe" width="800" height="650" loading="lazy" decoding="async" sizes="(max-width: 1023px) 100vw, 50vw"></div>
+        <div class="listing-body"><p class="tag">Lakefront</p><h3>Lakeside Retreat</h3><p class="loc">Lake Tahoe, CA · 5 bd · 4 ba</p></div>
+      </div></div>
+
+      <div class="listing span-6 reveal bezel" data-delay="3"><div class="bezel-inner">
+        <div class="listing-media"><span class="listing-price">$1.8M</span><img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&amp;fit=crop&amp;w=800&amp;h=650&amp;q=80" alt="Downtown penthouse in Austin" width="800" height="650" loading="lazy" decoding="async" sizes="(max-width: 1023px) 100vw, 50vw"></div>
+        <div class="listing-body"><p class="tag">Penthouse</p><h3>Skyline Penthouse</h3><p class="loc">Austin, TX · 3 bd · 3 ba</p></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="why">
+  <div class="section-inner">
+    <div class="section-head reveal" style="text-align:center;max-width:600px;margin-left:auto;margin-right:auto;">
+      <span class="kicker" style="justify-content:center;">Why Aldermere</span>
+      <h2>An agency built around fewer, better homes.</h2>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal"><div class="why-card-inner">
+        <div class="why-icon">◈</div>
+        <h3>Curated, not cataloged</h3>
+        <p>We represent a deliberately small portfolio — every listing personally walked and vetted before it reaches a client.</p>
+      </div></div>
+      <div class="why-card reveal" data-delay="1"><div class="why-card-inner">
+        <div class="why-icon">◐</div>
+        <h3>Local expertise, global reach</h3>
+        <p>Deep neighborhood knowledge paired with a network that brings qualified buyers from across the world.</p>
+      </div></div>
+      <div class="why-card reveal" data-delay="2"><div class="why-card-inner">
+        <div class="why-icon">◉</div>
+        <h3>One agent, start to keys</h3>
+        <p>The same dedicated agent guides every step — tours, negotiation, inspection, closing — so nothing falls through.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="process">
+  <div class="section-inner">
+    <div class="section-head reveal" style="text-align:center;max-width:560px;margin-left:auto;margin-right:auto;">
+      <span class="kicker" style="justify-content:center;">How It Works</span>
+      <h2>From first tour to final signature.</h2>
+    </div>
+
+    <div class="process-row">
+      <div class="process-step reveal"><div class="process-num">01 · Discover</div><h3>Discover</h3><p>Tell us what you're looking for — we shortlist homes that actually fit your life.</p></div>
+      <div class="process-step reveal" data-delay="1"><div class="process-num">02 · Tour</div><h3>Tour</h3><p>Private, unhurried viewings with an agent who knows the property inside out.</p></div>
+      <div class="process-step reveal" data-delay="2"><div class="process-num">03 · Offer</div><h3>Offer</h3><p>We negotiate on your behalf, backed by local market data and a steady hand.</p></div>
+      <div class="process-step reveal" data-delay="3"><div class="process-num">04 · Close</div><h3>Close</h3><p>Inspection to signature, handled end-to-end — you just show up for the keys.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-shell reveal bezel bezel-vellum"><div class="bezel-inner contact-inner">
+    <div>
+      <span class="kicker on-vellum" style="margin-bottom:24px;">Let's Talk</span>
+      <h2>Let's find <span class="not-italic">your</span> next address.</h2>
+      <p>Book a no-pressure consultation — we'll listen first, then show you homes worth your time.</p>
+      <a class="btn btn-brass" href="mailto:hello@aldermereestates.com" style="">Book a Viewing<span class="btn-bubble">↗</span></a>
+    </div>
+    <div class="agent-card">
+      <div class="agent-photo"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80" alt="Aldermere lead agent portrait" width="200" height="200" loading="lazy" decoding="async" sizes="72px"></div>
+      <strong>Naomi Carrow</strong>
+      <span>Principal Agent</span>
+      <p class="meta">hello@aldermereestates.com<br>+1 (415) 555-0138</p>
+    </div>
+  </div></div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-cols">
+      <div class="footer-brand">
+        <a href="#"><span class="brand-mark" style="width:22px;height:22px;"></span>Aldermere</a>
+        <p>Boutique real estate studio. Coastal California.</p>
+      </div>
+      <div class="footer-col">
+        <p class="head">Company</p>
+        <div><a href="#why">Why Us</a><a href="#process">Process</a><a href="#contact">Contact</a></div>
+      </div>
+      <div class="footer-col">
+        <p class="head">Listings</p>
+        <div><a href="#listings">Featured</a><a href="#">Sold</a><a href="#">Coming Soon</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Aldermere Estates. All rights reserved.</p>
+      <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var titlebar = document.getElementById('titlebar');
+  var progress = document.getElementById('scrollProgress');
+  var contours = document.querySelector('.hero-contours');
+  var plat = document.querySelector('.plat-card');
+  var hero = document.getElementById('hero');
+  var ticking = false;
+
+  function onScroll() {
+    var y = window.scrollY || window.pageYOffset;
+
+    titlebar.classList.toggle('scrolled', y > 20);
+
+    // Scroll progress bar (0 → 1 across the whole document)
+    if (progress) {
+      var doc = document.documentElement;
+      var max = (doc.scrollHeight - doc.clientHeight) || 1;
+      progress.style.transform = 'scaleX(' + Math.min(y / max, 1) + ')';
+    }
+
+    // Parallax on the hero layers — skipped entirely when reduced motion is on,
+    // and only while the hero is on screen (cheap + avoids drift lower down)
+    if (!reduceMotion && hero && y < hero.offsetHeight) {
+      if (contours) contours.style.transform = 'translateY(' + (y * 0.18) + 'px)';
+      if (plat) plat.style.transform = 'translateY(' + (y * -0.06) + 'px)';
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(onScroll);
+  }, { passive: true });
+  onScroll();
+
+  var burger = document.getElementById('navBurger');
+  var panel = document.getElementById('mobPanel');
+  if (burger && panel) {
+    var setMenu = function (open) {
+      panel.classList.toggle('open', open);
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+      document.body.classList.toggle('menu-open', open);
+    };
+    burger.addEventListener('click', function () {
+      setMenu(!panel.classList.contains('open'));
+    });
+    panel.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { setMenu(false); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && panel.classList.contains('open')) {
+        setMenu(false);
+        burger.focus();
+      }
+    });
+  }
+
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('in-view'); });
+  }
+
+  document.querySelectorAll('.btn-brass').forEach(function (btn) {
+    btn.addEventListener('mousemove', function (e) {
+      var r = btn.getBoundingClientRect();
+      var x = e.clientX - r.left - r.width / 2;
+      var y = e.clientY - r.top - r.height / 2;
+      btn.style.transform = 'translate(' + (x * 0.12) + 'px,' + (y * 0.28) + 'px)';
+    });
+    btn.addEventListener('mouseleave', function () { btn.style.transform = ''; });
+  });
+})();
+</script>
+
+
+</body></html>

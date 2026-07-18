@@ -1,0 +1,266 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/accordion/**",
+              "components/badge/**",
+              "components/buttons/**",
+              "components/card/**",
+              "components/marquee/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='AccordionItemData'] > JSXAttribute > JSXIdentifier[name!=/^(?:stepLabel|title|body|imageSrc|imageAlt|key|ref|className|style|children)$/]",
+        "message": "<AccordionItemData> doesn't accept that prop. Declared props: stepLabel, title, body, imageSrc, imageAlt."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|label|theme|style|key|ref|className|style|children)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: value, label, theme, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:dark|light)$/]",
+        "message": "<Badge> theme must be one of 'dark' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|href|onClick|children|arrow|disabled|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, size, href, onClick, children, arrow, disabled, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|outline|ghost)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'outline' | 'ghost'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Marquee'] > JSXAttribute > JSXIdentifier[name!=/^(?:items|separator|speed|theme|style|key|ref|className|style|children)$/]",
+        "message": "<Marquee> doesn't accept that prop. Declared props: items, separator, speed, theme, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Marquee'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:dark|light)$/]",
+        "message": "<Marquee> theme must be one of 'dark' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='WorkCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:index|title|description|result|resultLabel|imageSrc|imageAlt|href|style|key|ref|className|style|children)$/]",
+        "message": "<WorkCard> doesn't accept that prop. Declared props: index, title, description, result, resultLabel, imageSrc, imageAlt, href, style."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "AccordionItemData": {
+        "replaces": []
+      },
+      "Badge": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": []
+      },
+      "Marquee": {
+        "replaces": []
+      },
+      "WorkCard": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent",
+      "--accent-hover",
+      "--col-gap",
+      "--dur-base",
+      "--dur-fast",
+      "--dur-slow",
+      "--dur-slower",
+      "--ease",
+      "--ease-in",
+      "--ease-in-out",
+      "--ease-out",
+      "--font-body",
+      "--font-display",
+      "--font-mono",
+      "--font-serif",
+      "--grain-opacity",
+      "--ground",
+      "--ground-deep",
+      "--gutter",
+      "--ink",
+      "--ink-faint",
+      "--ink-muted",
+      "--max-width",
+      "--paper",
+      "--paper-deep",
+      "--paper-raised",
+      "--radius",
+      "--radius-pill",
+      "--radius-sm",
+      "--rule",
+      "--rule-paper",
+      "--rule-paper-strong",
+      "--rule-strong",
+      "--shadow-card",
+      "--shadow-panel",
+      "--space-1",
+      "--space-10",
+      "--space-11",
+      "--space-12",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--space-9",
+      "--surface",
+      "--surface-raised",
+      "--text",
+      "--text-faint",
+      "--text-muted",
+      "--type-body-line",
+      "--type-body-size",
+      "--type-body-weight",
+      "--type-display-line",
+      "--type-display-size",
+      "--type-display-track",
+      "--type-display-weight",
+      "--type-headline-line",
+      "--type-headline-size",
+      "--type-headline-track",
+      "--type-headline-weight",
+      "--type-label-line",
+      "--type-label-size",
+      "--type-label-track",
+      "--type-label-weight",
+      "--type-meta-size",
+      "--type-meta-track",
+      "--type-meta-weight",
+      "--type-title-line",
+      "--type-title-size",
+      "--type-title-track",
+      "--type-title-weight",
+      "--type-wordmark-size",
+      "--type-wordmark-track",
+      "--type-wordmark-weight"
+    ],
+    "tokenKinds": {
+      "--ground": "color",
+      "--ground-deep": "color",
+      "--surface": "color",
+      "--surface-raised": "color",
+      "--paper": "color",
+      "--paper-raised": "color",
+      "--paper-deep": "color",
+      "--ink": "color",
+      "--ink-muted": "color",
+      "--ink-faint": "color",
+      "--text": "font",
+      "--text-muted": "font",
+      "--text-faint": "font",
+      "--accent": "color",
+      "--accent-hover": "color",
+      "--rule": "color",
+      "--rule-strong": "color",
+      "--rule-paper": "color",
+      "--rule-paper-strong": "color",
+      "--font-display": "font",
+      "--font-body": "font",
+      "--font-mono": "font",
+      "--font-serif": "font",
+      "--type-display-size": "font",
+      "--type-display-weight": "font",
+      "--type-display-line": "font",
+      "--type-display-track": "font",
+      "--type-headline-size": "font",
+      "--type-headline-weight": "font",
+      "--type-headline-line": "font",
+      "--type-headline-track": "font",
+      "--type-title-size": "font",
+      "--type-title-weight": "font",
+      "--type-title-line": "font",
+      "--type-title-track": "font",
+      "--type-body-size": "font",
+      "--type-body-weight": "font",
+      "--type-body-line": "font",
+      "--type-label-size": "font",
+      "--type-label-weight": "font",
+      "--type-label-track": "font",
+      "--type-label-line": "font",
+      "--type-meta-size": "font",
+      "--type-meta-weight": "font",
+      "--type-meta-track": "font",
+      "--type-wordmark-size": "font",
+      "--type-wordmark-weight": "font",
+      "--type-wordmark-track": "font",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--space-9": "spacing",
+      "--space-10": "spacing",
+      "--space-11": "spacing",
+      "--space-12": "spacing",
+      "--max-width": "spacing",
+      "--gutter": "other",
+      "--col-gap": "spacing",
+      "--radius": "radius",
+      "--radius-sm": "radius",
+      "--radius-pill": "radius",
+      "--ease": "other",
+      "--ease-in": "other",
+      "--ease-out": "other",
+      "--ease-in-out": "other",
+      "--dur-fast": "other",
+      "--dur-base": "other",
+      "--dur-slow": "other",
+      "--dur-slower": "other",
+      "--grain-opacity": "other",
+      "--shadow-card": "shadow",
+      "--shadow-panel": "shadow"
+    },
+    "fontFamilies": []
+  }
+}
