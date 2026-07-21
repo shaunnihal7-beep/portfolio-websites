@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- Plain Dark Background -->
+  <rect width="800" height="450" fill="#0f172a"/>
+  
+  <!-- Subtle Soft Center Glow -->
+  <radialGradient id="center-glow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.12"/>
+    <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="800" height="450" fill="url(#center-glow)"/>
+
+  <!-- Simple Clean Frame Border -->
+  <rect x="40" y="40" width="720" height="370" rx="12" fill="none" stroke="#334155" stroke-width="1.5" stroke-opacity="0.6"/>
+
+  <!-- Minimalist Typography & Branding -->
+  <g transform="translate(400, 210)" text-anchor="middle">
+    <!-- Category Badge -->
+    <rect x="-70" y="-85" width="140" height="26" rx="13" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="0" y="-68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="11" fill="#94a3b8" letter-spacing="2">DESIGN SYSTEM</text>
+
+    <!-- Main Title -->
+    <text x="0" y="-10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="44" fill="#ffffff" letter-spacing="4">STITCH</text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="500" font-size="15" fill="#64748b" letter-spacing="3">TYPOGRAPHY &amp; UI FRAMEWORK</text>
+    
+    <!-- Simple Horizontal Accent Bar -->
+    <rect x="-30" y="55" width="60" height="3" rx="1.5" fill="#6366f1"/>
+  </g>
+</svg>

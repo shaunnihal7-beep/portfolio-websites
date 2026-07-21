@@ -20,9 +20,9 @@ const PROJECTS = [
       "Subtle grain canvas overlay and sleek dark styling"
     ],
     codeFiles: [
-      { name: "App.jsx", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/aureon/src/App.jsx" },
-      { name: "vite.config.js", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/aureon/vite.config.js" },
-      { name: "main.jsx", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/aureon/src/main.jsx" }
+      { name: "App.jsx", path: "./aureon/src/App.jsx" },
+      { name: "vite.config.js", path: "./aureon/vite.config.js" },
+      { name: "main.jsx", path: "./aureon/src/main.jsx" }
     ]
   },
   {
@@ -46,9 +46,9 @@ const PROJECTS = [
       "Preloader script and reduced-motion fallback options"
     ],
     codeFiles: [
-      { name: "index.html", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/new/index.html" },
-      { name: "styles.css", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/new/css/styles.css" },
-      { name: "main.js", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/new/js/main.js" }
+      { name: "index.html", path: "./new/index.html" },
+      { name: "styles.css", path: "./new/css/styles.css" },
+      { name: "main.js", path: "./new/js/main.js" }
     ]
   },
   {
@@ -71,8 +71,8 @@ const PROJECTS = [
       "High quality custom screenshots and brand assets"
     ],
     codeFiles: [
-      { name: "Meridian.dc.html", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/Meridian_Marketing_Agency_Website/Meridian.dc.html" },
-      { name: "support.js", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/Meridian_Marketing_Agency_Website/support.js" }
+      { name: "Meridian.dc.html", path: "./Meridian_Marketing_Agency_Website/Meridian.dc.html" },
+      { name: "support.js", path: "./Meridian_Marketing_Agency_Website/support.js" }
     ]
   },
   {
@@ -95,7 +95,7 @@ const PROJECTS = [
       "Premium typography using elegant display serifs"
     ],
     codeFiles: [
-      { name: "index.html", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/mens-salon/index.html" }
+      { name: "index.html", path: "./mens-salon/index.html" }
     ]
   },
   {
@@ -118,34 +118,9 @@ const PROJECTS = [
       "Minimalist typography framing high-quality images"
     ],
     codeFiles: [
-      { name: "aldermere-estates.html", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/high-end_skill/aldermere-estates.html" },
-      { name: "style.css", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/high-end_skill/style.css" },
-      { name: "script.js", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/high-end_skill/script.js" }
-    ]
-  },
-  {
-    id: "terminal",
-    title: "Claude Code Dashboard",
-    subtitle: "Futuristic Coding HUD",
-    description: "An interactive frontend mockup of a terminal developer workspace. Features mock shell inputs, file tree nodes, and cyberpunk glow styling.",
-    thumbnail: "./gallery_assets/thumbnails/terminal.png",
-    path: "./front-end_skill_claude_code/index.html",
-    accent: "#06b6d4", // Cyan
-    glowColor: "rgba(6, 182, 212, 0.4)",
-    glowBg: "rgba(6, 182, 212, 0.08)",
-    badge: "Tech HUD",
-    category: "Tech",
-    tags: ["HTML", "Vanilla CSS", "Vanilla JS", "Interactive Shell", "Matrix Grid"],
-    highlights: [
-      "Responsive developer workspace layout with simulated sidebar panels",
-      "Live interactive terminal running mock CLI feedback loop",
-      "Neon cyan matrix coding aesthetic with monospaced log lines",
-      "Expandable directory mock node folders"
-    ],
-    codeFiles: [
-      { name: "index.html", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/front-end_skill_claude_code/index.html" },
-      { name: "styles.css", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/front-end_skill_claude_code/styles.css" },
-      { name: "script.js", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/front-end_skill_claude_code/script.js" }
+      { name: "aldermere-estates.html", path: "./high-end_skill/aldermere-estates.html" },
+      { name: "style.css", path: "./high-end_skill/style.css" },
+      { name: "script.js", path: "./high-end_skill/script.js" }
     ]
   },
   {
@@ -153,11 +128,11 @@ const PROJECTS = [
     title: "Stitch Design System",
     subtitle: "Typography & UI Framework",
     description: "A clean, highly structured typographic playground and Markdown reader. Perfect for reading documentation or inspecting standard web components.",
-    thumbnail: "./gallery_assets/thumbnails/stitch.png",
+    thumbnail: "./gallery_assets/thumbnails/stitch.svg",
     path: "./stitch_markdown_design_system/code.html",
-    accent: "#e2e8f0", // Light Grey
-    glowColor: "rgba(226, 232, 240, 0.4)",
-    glowBg: "rgba(226, 232, 240, 0.08)",
+    accent: "#6366f1", // Indigo
+    glowColor: "rgba(99, 102, 241, 0.4)",
+    glowBg: "rgba(99, 102, 241, 0.08)",
     badge: "Design System",
     category: "Minimalist",
     tags: ["HTML", "Vanilla CSS", "Typography scale", "Document Reader", "Component Grids"],
@@ -168,7 +143,7 @@ const PROJECTS = [
       "Clean contrast margins designed for reading focus"
     ],
     codeFiles: [
-      { name: "code.html", path: "file:///c:/Users/rajsh/Projects_2026/portfolio-websites/stitch_markdown_design_system/code.html" }
+      { name: "code.html", path: "./stitch_markdown_design_system/code.html" }
     ]
   }
 ];
@@ -407,7 +382,7 @@ function populateSidebar(p) {
       <h3>Source Files</h3>
       <div class="code-links-container">
         ${p.codeFiles.map(cf => `
-          <a href="${cf.path}" class="code-link" title="Click to inspect code file">
+          <a href="${cf.path}" target="_blank" class="code-link" title="Click to inspect code file">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
             ${cf.name}
           </a>
