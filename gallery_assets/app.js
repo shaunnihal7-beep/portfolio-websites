@@ -145,6 +145,32 @@ const PROJECTS = [
     codeFiles: [
       { name: "code.html", path: "./stitch_markdown_design_system/code.html" }
     ]
+  },
+  {
+    id: "marmo",
+    title: "MARMO",
+    subtitle: "Michelin-Star Fine Dining",
+    description: "A luxurious, editorial web concept for a three-Michelin-star Italian tasting-menu restaurant in Rome. Features custom IntersectionObserver scroll transitions, parallax content modules, and dynamic SVG marble-vein animations.",
+    thumbnail: "./gallery_assets/thumbnails/marmo.png",
+    path: "./front-end_skill_claude_code/index.html",
+    accent: "#b1874c",
+    glowColor: "rgba(177, 135, 76, 0.4)",
+    glowBg: "rgba(177, 135, 76, 0.08)",
+    badge: "Michelin Dining",
+    category: "Minimalist",
+    tags: ["HTML", "Vanilla CSS", "Vanilla JS", "Scroll Reveal", "Parallax", "SVG Path Animation"],
+    highlights: [
+      "Smooth scroll-triggered visual reveals and staggers using IntersectionObserver",
+      "Sophisticated micro-interactions and requestAnimationFrame-driven parallax movement",
+      "Dynamic SVG paths mimicking organic marble veins that draw on page load",
+      "Seamless responsiveness with fallback options for prefers-reduced-motion",
+      "Elegant typography pairing high-contrast display serif headers with clean sans-serif body text"
+    ],
+    codeFiles: [
+      { name: "index.html", path: "./front-end_skill_claude_code/index.html" },
+      { name: "styles.css", path: "./front-end_skill_claude_code/styles.css" },
+      { name: "script.js", path: "./front-end_skill_claude_code/script.js" }
+    ]
   }
 ];
 
